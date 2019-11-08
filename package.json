@@ -1,8 +1,10 @@
 {
   "name": "@shuizhongyueming/lory",
-  "version": "0.0.0-semantic-release",
+  "version": "0.0.0",
   "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "author": {
     "name": "happyWang",
     "email": "shuizhongyueming@gmail.com",
