@@ -4,12 +4,12 @@
   "description": "Touch enabled minimalistic slider written in vanilla JavaScript.",
   "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "author": {
-    "name": "Maximilian Heinz",
-    "email": "info@maximilian-heinz.de",
-    "url": "https://twitter.com/_meandmax_"
+    "name": "happyWang",
+    "email": "shuizhongyueming@gmail.com",
+    "url": "https://github.com/shuizhongyueming/lory"
   },
   "bugs": {
-    "url": "https://github.com/meandmax/lory/issues"
+    "url": "https://github.com/shuizhongyueming/lory"
   },
   "inceptionYear": 2015,
   "licenses": [
@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/meandmax/lory.git"
+    "url": "https://github.com/shuizhongyueming/lory.git"
   },
   "keywords": [
     "responsive",
