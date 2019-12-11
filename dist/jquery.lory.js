@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -92,15 +92,11 @@ var _detectPrefixes = __webpack_require__(1);
 
 var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
 
-var _detectSupportsPassive = __webpack_require__(2);
-
-var _detectSupportsPassive2 = _interopRequireDefault(_detectSupportsPassive);
-
-var _dispatchEvent = __webpack_require__(3);
+var _dispatchEvent = __webpack_require__(2);
 
 var _dispatchEvent2 = _interopRequireDefault(_dispatchEvent);
 
-var _defaults = __webpack_require__(6);
+var _defaults = __webpack_require__(5);
 
 var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -126,7 +122,7 @@ function lory(slider, opts) {
 
     var index = 0;
     var options = {};
-    var touchEventParams = (0, _detectSupportsPassive2.default)() ? { passive: true } : false;
+    var touchEventParams = false;
 
     /**
      * if object is jQuery convert to native DOM element
@@ -412,9 +408,14 @@ function lory(slider, opts) {
         }
 
         frame.addEventListener('touchstart', onTouchstart, touchEventParams);
+        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
+        frame.addEventListener('touchend', onTouchend);
 
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
+            frame.addEventListener('mousemove', onTouchmove);
+            frame.addEventListener('mouseup', onTouchend);
+            frame.addEventListener('mouseleave', onTouchend);
             frame.addEventListener('click', onClick);
         }
 
@@ -554,19 +555,7 @@ function lory(slider, opts) {
     }
 
     function onTouchstart(event) {
-        var _options6 = options,
-            enableMouseEvents = _options6.enableMouseEvents;
-
         var touches = event.touches ? event.touches[0] : event;
-
-        if (enableMouseEvents) {
-            frame.addEventListener('mousemove', onTouchmove);
-            frame.addEventListener('mouseup', onTouchend);
-            frame.addEventListener('mouseleave', onTouchend);
-        }
-
-        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
-        frame.addEventListener('touchend', onTouchend);
 
         var pageX = touches.pageX,
             pageY = touches.pageY;
@@ -603,6 +592,7 @@ function lory(slider, opts) {
         }
 
         if (!isScrolling && touchOffset) {
+            event.preventDefault();
             translate(position.x + delta.x, 0, null);
         }
 
@@ -654,15 +644,6 @@ function lory(slider, opts) {
         }
 
         touchOffset = undefined;
-
-        /**
-         * remove eventlisteners after swipe attempt
-         */
-        frame.removeEventListener('touchmove', onTouchmove);
-        frame.removeEventListener('touchend', onTouchend);
-        frame.removeEventListener('mousemove', onTouchmove);
-        frame.removeEventListener('mouseup', onTouchend);
-        frame.removeEventListener('mouseleave', onTouchend);
 
         dispatchSliderEvent('on', 'touchend', {
             event: event
@@ -769,37 +750,9 @@ function detectPrefixes() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = detectSupportsPassive;
-function detectSupportsPassive() {
-    var supportsPassive = false;
-
-    try {
-        var opts = Object.defineProperty({}, 'passive', {
-            get: function get() {
-                supportsPassive = true;
-            }
-        });
-
-        window.addEventListener('testPassive', null, opts);
-        window.removeEventListener('testPassive', null, opts);
-    } catch (e) {}
-
-    return supportsPassive;
-}
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 exports.default = dispatchEvent;
 
-var _customEvent = __webpack_require__(4);
+var _customEvent = __webpack_require__(3);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
@@ -823,7 +776,7 @@ function dispatchEvent(target, type, detail) {
 }
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -875,10 +828,10 @@ function CustomEvent (type, params) {
   return e;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 var g;
@@ -905,7 +858,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1017,8 +970,8 @@ exports.default = {
 };
 
 /***/ }),
-/* 7 */,
-/* 8 */
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
